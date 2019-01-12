@@ -3,6 +3,7 @@ package redis
 import (
 	"crypto/tls"
 	"errors"
+	"fmt"
 	"net"
 	"net/url"
 	"strconv"
@@ -90,9 +91,13 @@ func (opt *Options) init() {
 	}
 	if opt.ReadTimeout == 0 {
 		opt.ReadTimeout = 3 * time.Second
+	} else if opt.ReadTimeout == -1 {
+		opt.ReadTimeout = 0
 	}
 	if opt.WriteTimeout == 0 {
 		opt.WriteTimeout = opt.ReadTimeout
+	} else if opt.WriteTimeout == -1 {
+		opt.WriteTimeout = 0
 	}
 	if opt.PoolTimeout == 0 {
 		opt.PoolTimeout = opt.ReadTimeout + time.Second
@@ -147,7 +152,7 @@ func ParseURL(redisURL string) (*Options, error) {
 		o.DB = 0
 	case 1:
 		if o.DB, err = strconv.Atoi(f[0]); err != nil {
-			return nil, errors.New("invalid redis database number: " + err.Error())
+			return nil, fmt.Errorf("invalid redis database number: %q", f[0])
 		}
 	default:
 		return nil, errors.New("invalid redis URL path: " + u.Path)

@@ -4,7 +4,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: johscheuer/todo-app-web
+    image: alexeiled/todo-app-web
     command: ["./todo-app", "-config-file", "/etc/todo-app/redis.config"]
     ports:
      - 3000:3000
