@@ -12,7 +12,7 @@ COPY . .
 
 # build binary
 ENV GO111MODULE=on
-RUN CGO_ENABLED=0 go build -mod=vendor -o /bin/todo-app .
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -mod=vendor -o /bin/todo-app .
 
 #
 # ----- Release Image ------
