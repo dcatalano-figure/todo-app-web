@@ -1,7 +1,7 @@
 #
 # ----- Go Builder Image ------
 #
-FROM golang:1.11 AS builder
+FROM golang:1.11-alpine AS builder
 
 # set working directory
 RUN mkdir -p /go/src/github.com/johscheuer/todo-app-web

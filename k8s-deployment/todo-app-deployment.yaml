@@ -34,7 +34,8 @@ spec:
           - name: todo-app-config
             mountPath: /etc/todo-app
           ports:
-            - containerPort: 3000
+            - name: app
+              containerPort: 3000
               protocol: "TCP"
           livenessProbe:
             httpGet:

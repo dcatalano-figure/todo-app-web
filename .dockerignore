@@ -1,0 +1,7 @@
+.idea
+.git
+.gitignore
+.vscode
+
+bin
+k8s-deployment
