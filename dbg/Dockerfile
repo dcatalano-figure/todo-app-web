@@ -1,7 +1,7 @@
 #
 # ----- Go Builder Image ------
 #
-FROM golang:1.10-alpine AS builder
+FROM golang:1.11-alpine AS builder
 
 # install git
 RUN apk add --no-cache git
@@ -17,7 +17,7 @@ WORKDIR /go/src/github.com/johscheuer/todo-app-web
 RUN go get -u github.com/go-delve/delve/cmd/dlv
 
 # enable mod
-#ENV GO111MODULE=on
+ENV GO111MODULE=on
 
 # copy sources
 COPY . .
@@ -28,5 +28,5 @@ EXPOSE 3000
 EXPOSE 2345
 
 # delve debug command
-CMD ["dlv", "debug", "--headless", "--api-version=2", "--listen=:2345", "--log"]
+CMD ["dlv", "debug", "--build-flags='-mod=vendor'", "--headless", "--api-version=2", "--listen=:2345", "--log"]
 
