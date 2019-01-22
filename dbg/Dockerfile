@@ -10,8 +10,8 @@ RUN apk add --no-cache git
 ENV CGO_ENABLED=0 
 
 # set working directory
-RUN mkdir -p /go/src/github.com/johscheuer/todo-app-web
-WORKDIR /go/src/github.com/johscheuer/todo-app-web
+RUN mkdir -p /app
+WORKDIR /app
 
 # install delve
 RUN go get -u github.com/go-delve/delve/cmd/dlv
@@ -29,11 +29,11 @@ RUN go build -gcflags="all=-N -l" -mod=vendor -o ./todo-app .
 FROM alpine:3.8
 
 # set working directory
-RUN mkdir -p /go/src/github.com/johscheuer/todo-app-web
-WORKDIR /go/src/github.com/johscheuer/todo-app-web
+RUN mkdir -p /app
+WORKDIR /app
 
 COPY --from=builder /go/bin/dlv /usr/local/bin/dlv
-COPY --from=builder /go/src/github.com/johscheuer/todo-app-web/ .
+COPY --from=builder /app/ .
 
 # expose app port
 EXPOSE 3000
