@@ -1,4 +1,8 @@
+.debug
 .idea
+.venv
 .vscode
+
+*.log
 
 bin

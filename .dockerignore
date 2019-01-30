@@ -1,7 +1,10 @@
+.debug
 .idea
 .git
 .gitignore
 .vscode
+
+*.log
 
 bin
 k8s-deployment
