@@ -27,6 +27,15 @@
     }
   },
   {
+    "op": "add",
+    "path":"/spec/template/spec/containers/0/securityContext",
+    "value": {
+      "capabilities": {
+        "add": ["SYS_PTRACE"]
+      }
+    }
+  },
+  {
     "op": "remove",
     "path": "/spec/template/spec/containers/0/livenessProbe"
   },

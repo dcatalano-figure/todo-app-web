@@ -5,6 +5,8 @@
 .vscode
 
 *.log
+*.md
+*.json
 
 bin
 k8s-deployment
