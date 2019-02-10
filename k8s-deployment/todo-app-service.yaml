@@ -10,7 +10,7 @@ metadata:
     prometheus.io/port: "3000"
 spec:
   ports:
-    - port: 9080
+    - port: 80
       targetPort: 3000
       protocol: "TCP"
   selector:
