@@ -7,7 +7,8 @@ FROM golang:1.11-alpine AS builder
 RUN apk add --no-cache git
 
 # set working directory
-WORKDIR /workspace
+RUN mkdir -p /app
+WORKDIR /app
 
 # copy sources
 COPY . .
@@ -20,7 +21,7 @@ RUN GO111MODULE=on CGO_ENABLED=0 go build -ldflags="-s -w -X main.appVersion=$(c
 #
 FROM alpine:3.8
 
-COPY --from=builder /workspace/bin/todo-app /app/todo-app
+COPY --from=builder /app/bin/todo-app /app/todo-app
 COPY ./public /app/public
 
 WORKDIR /app
