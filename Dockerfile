@@ -3,23 +3,24 @@
 #
 FROM golang:1.11-alpine AS builder
 
+# install git
+RUN apk add --no-cache git
+
 # set working directory
-RUN mkdir -p /go/src/github.com/johscheuer/todo-app-web
-WORKDIR /go/src/github.com/johscheuer/todo-app-web
+WORKDIR /workspace
 
 # copy sources
 COPY . .
 
 # build binary
-ENV GO111MODULE=on
-RUN CGO_ENABLED=0 go build -ldflags="-s -w -X main.appVersion=$(cat VERSION)" -mod=vendor -o /bin/todo-app .
+RUN GO111MODULE=on CGO_ENABLED=0 go build -ldflags="-s -w -X main.appVersion=$(cat VERSION)" -o ./bin/todo-app .
 
 #
 # ----- Release Image ------
 #
 FROM alpine:3.8
 
-COPY --from=builder /bin/todo-app /app/todo-app
+COPY --from=builder /workspace/bin/todo-app /app/todo-app
 COPY ./public /app/public
 
 WORKDIR /app
